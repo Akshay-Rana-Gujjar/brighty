@@ -1,0 +1,1 @@
+A simple python program that set brightness of screen nothing else.

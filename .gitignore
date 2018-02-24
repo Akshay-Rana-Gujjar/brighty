@@ -1,0 +1,5 @@
+# Config File
+config.cfg
+
+# Virtualenv
+py3env/
