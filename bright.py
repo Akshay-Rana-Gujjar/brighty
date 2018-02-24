@@ -4,11 +4,13 @@ from bottle import route, run, static_file
 import bottle
 import subprocess
 import socket
+from termcolor import colored
 
 display_vendor = subprocess.check_output("ls /sys/class/backlight/", shell=True)
 display_vendor = str(display_vendor, "utf-8").replace("\n","")
 
 host = "0.0.0.0"
+port = 8080
 s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
 s.connect(("8.8.8.8", 80))
 local_ip = s.getsockname()[0]
@@ -30,8 +32,6 @@ def start():
 
   return static_file("index.html", root="./")
 
-print("\n\n", """
-open http://{}:{} in your mobile browser 
-""".format(local_ip, "8080"))
-
-run(host=host, port=8080)
+print("\n\nopen", colored("http://"+local_ip+":"+str(port), "blue", attrs=['reverse', 'blink', "bold"]) , "in your mobile browser ")
+print(colored("Warning: Both devices your mobile and pc should be connected on same network", "yellow") , "\n\n\n")
+run(host=host, port=port)
