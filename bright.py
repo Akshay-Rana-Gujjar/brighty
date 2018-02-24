@@ -9,7 +9,10 @@ display_vendor = subprocess.check_output("ls /sys/class/backlight/", shell=True)
 display_vendor = str(display_vendor, "utf-8").replace("\n","")
 
 host = "0.0.0.0"
-fqdn = socket.getfqdn()
+s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+s.connect(("8.8.8.8", 80))
+local_ip = s.getsockname()[0]
+s.close()
 
 app = bottle.Bottle()
 app.config.load_config('config.cfg')
@@ -28,7 +31,7 @@ def start():
   return static_file("index.html", root="./")
 
 print("\n\n", """
-open {}:{}/set/<any int value> in your mobile 
-""".format(fqdn, "8080"))
+open http://{}:{} in your mobile browser 
+""".format(local_ip, "8080"))
 
 run(host=host, port=8080)
