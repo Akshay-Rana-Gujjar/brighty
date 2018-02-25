@@ -32,6 +32,13 @@ def start():
 
   return static_file("index.html", root="./")
 
+@route("/open/<site>")
+def code(site):
+  website = site.replace("http://","").replace("www.","").replace("https://","")
+  command = "google-chrome http://www."+website
+  os.system(command)
+  return "opening... "
+
 print("\n\nopen", colored("http://"+local_ip+":"+str(port), "blue", attrs=['reverse', 'blink', "bold"]) , "in your mobile browser ")
 print(colored("Warning: Both devices your mobile and pc should be connected on same network", "yellow") , "\n\n\n")
 run(host=host, port=port)
