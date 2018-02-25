@@ -25,7 +25,7 @@ password = app.config["confidential.password"]
 def index(brightnessPercentage):
 
   command = "echo "+brightnessPercentage+" | sudo tee /sys/class/backlight/"+display_vendor+"/brightness"
-  os.system('echo %s|sudo -S %s' % (password, command))
+  os.system('echo %s | sudo -S %s' % (password, command))
   return "set to "+brightnessPercentage
 @route('/')
 def start():
